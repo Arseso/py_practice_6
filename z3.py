@@ -1,6 +1,6 @@
 import sys
 from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QPushButton, QLabel, QLineEdit, QCheckBox, \
-    QWizard, QWidget
+    QWizard, QWidget, QWizardPage
 from PySide6.QtCore import Qt
 
 class RegistrationWizard(QWizard):
@@ -8,9 +8,9 @@ class RegistrationWizard(QWizard):
         super().__init__()
         self.setWindowTitle("Регистрация пользователя")
 
-        self.addPage(WizardPage1())
-        self.addPage(WizardPage2())
-        self.addPage(WizardPage3())
+        self.addPage(LoginPage())
+        self.addPage(NamePage())
+        self.addPage(SubscribePage())
 
     def accept(self):
         login = self.field("login")
@@ -24,7 +24,7 @@ class RegistrationWizard(QWizard):
 
         super().accept()
 
-class WizardPage1(QWizard):
+class LoginPage(QWizardPage):
     def __init__(self):
         super().__init__()
 
@@ -43,7 +43,7 @@ class WizardPage1(QWizard):
 
         self.setLayout(layout)
 
-class WizardPage2(QWizard):
+class NamePage(QWizardPage):
     def __init__(self):
         super().__init__()
 
@@ -58,7 +58,7 @@ class WizardPage2(QWizard):
         self.setLayout(layout)
 
 
-class WizardPage3(QWizard):
+class SubscribePage(QWizardPage):
     def __init__(self):
         super().__init__()
 
