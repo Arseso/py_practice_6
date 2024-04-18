@@ -58,3 +58,5 @@ if __name__ == "__main__":
                              dotes_c=cosin_dotes_generator(100))
     main_window.show()
     sys.exit(app.exec())
+
+#%%

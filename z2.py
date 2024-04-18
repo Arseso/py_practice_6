@@ -3,7 +3,7 @@ import sys
 
 from PySide6.QtCore import QDateTime
 from PySide6.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, QListWidget, QDialog, QLineEdit, \
-    QDateTimeEdit, QLabel
+    QDateTimeEdit, QLabel, QMainWindow, QToolBar
 
 
 class AddNoteDialog(QDialog):
@@ -43,7 +43,7 @@ class AddNoteDialog(QDialog):
 
 
 
-class NoteApp(QWidget):
+class NoteApp(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Приложение для заметок")
@@ -53,11 +53,20 @@ class NoteApp(QWidget):
         self.add_button.clicked.connect(self.add_note_dialog)
         self.note_list.itemDoubleClicked.connect(self.edit_note_dialog)
 
+        # Создаем тулбар
+        toolbar = QToolBar()
+        self.addToolBar(toolbar)
+
+        # Добавляем кнопку на тулбар
+        toolbar.addWidget(self.add_button)
+
         layout = QVBoxLayout()
         layout.addWidget(self.note_list)
-        layout.addWidget(self.add_button)
 
-        self.setLayout(layout)
+        # Устанавливаем макет на центральный виджет
+        central_widget = QWidget()
+        central_widget.setLayout(layout)
+        self.setCentralWidget(central_widget)
 
     def add_note_dialog(self):
         dialog = AddNoteDialog()
@@ -70,7 +79,6 @@ class NoteApp(QWidget):
         if dialog.exec():
             text, date = dialog.get_note_data()
             item.setText(f"{text} - {date}")
-        pass
 
 
 if __name__ == "__main__":
@@ -78,4 +86,3 @@ if __name__ == "__main__":
     note_app = NoteApp()
     note_app.show()
     sys.exit(app.exec())
-
